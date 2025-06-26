@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
               <div className="text-white font-bold text-xl">🐼</div>
             </div>
@@ -19,19 +20,19 @@ const Header = () => {
               <h1 className="text-2xl font-bold text-black">IT-Pandas</h1>
               <p className="text-sm text-gray-600">1C & Битрикс24</p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-8">
-            <a href="/" className="text-gray-700 hover:text-black transition-colors font-medium">
+            <Link to="/" className="text-gray-700 hover:text-black transition-colors font-medium">
               Главная
-            </a>
-            <a href="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
+            </Link>
+            <Link to="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
               Новости
-            </a>
-            <a href="/products" className="text-gray-700 hover:text-black transition-colors font-medium">
+            </Link>
+            <Link to="/product/1c" className="text-gray-700 hover:text-black transition-colors font-medium">
               Продукты
-            </a>
+            </Link>
             <a href="/portfolio" className="text-gray-700 hover:text-black transition-colors font-medium">
               Портфолио
             </a>
@@ -60,15 +61,15 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-gray-200">
             <nav className="flex flex-col space-y-4 mt-4">
-              <a href="/" className="text-gray-700 hover:text-black transition-colors font-medium">
+              <Link to="/" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Главная
-              </a>
-              <a href="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
+              </Link>
+              <Link to="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Новости
-              </a>
-              <a href="/products" className="text-gray-700 hover:text-black transition-colors font-medium">
+              </Link>
+              <Link to="/product/1c" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Продукты
-              </a>
+              </Link>
               <a href="/portfolio" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Портфолио
               </a>

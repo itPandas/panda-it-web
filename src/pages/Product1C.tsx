@@ -39,48 +39,46 @@ const Product1C = () => {
     }
   ];
 
-  const pricingPlans = [
+  const products = [
     {
-      name: "Базовая версия",
-      description: "Для малого бизнеса",
-      price: "45 000",
-      features: [
-        "Ведение учета товаров",
-        "Работа с контрагентами",
-        "Простые отчеты",
-        "До 5 пользователей",
-        "Техподдержка email"
-      ],
-      popular: false
+      name: "1С:Бухгалтерия для Казахстана",
+      price: "78 000",
+      description: "Базовая версия для ведения бухгалтерского учета"
     },
     {
-      name: "Стандарт",
-      description: "Для среднего бизнеса",
+      name: "1 дополнительное рабочее место",
+      price: "38 880",
+      description: "Лицензия на дополнительного пользователя"
+    },
+    {
+      name: "Пакет на 5 рабочих мест",
+      price: "120 000",
+      description: "Комплект лицензий для небольшого офиса"
+    },
+    {
+      name: "1С:Управление торговлей для Казахстана",
+      price: "95 000",
+      description: "Решение для автоматизации торговых процессов"
+    },
+    {
+      name: "1С:Зарплата и управление персоналом",
+      price: "65 000",
+      description: "Кадровый учет и расчет заработной платы"
+    },
+    {
+      name: "1С:Управление производственным предприятием",
+      price: "180 000",
+      description: "Комплексное решение для производства"
+    },
+    {
+      name: "Пакет на 10 рабочих мест",
+      price: "220 000",
+      description: "Расширенный комплект для средних предприятий"
+    },
+    {
+      name: "1С:CRM КОРП",
       price: "85 000",
-      features: [
-        "Все функции базовой версии",
-        "Расширенная аналитика",
-        "Интеграция с банками",
-        "До 25 пользователей",
-        "Техподдержка телефон + email",
-        "Обучение персонала"
-      ],
-      popular: true
-    },
-    {
-      name: "Профессиональная",
-      description: "Для крупного бизнеса",
-      price: "150 000",
-      features: [
-        "Все функции стандартной версии",
-        "Многофилиальный учет",
-        "API для интеграций",
-        "Неограниченное количество пользователей",
-        "Приоритетная техподдержка 24/7",
-        "Персональный менеджер",
-        "Настройка под задачи бизнеса"
-      ],
-      popular: false
+      description: "Система управления взаимоотношениями с клиентами"
     }
   ];
 
@@ -191,59 +189,56 @@ const Product1C = () => {
         {/* Pricing Table */}
         <section className="py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-4xl font-bold mb-4">Цены и варианты</h2>
                 <p className="text-xl text-gray-600">
-                  Выберите подходящий тариф для вашего бизнеса
+                  Стоимость продуктов 1С в тенге
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {pricingPlans.map((plan, index) => (
-                  <Card key={index} className={`relative ${plan.popular ? 'border-2 border-black shadow-xl' : ''}`}>
-                    {plan.popular && (
-                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-black text-white">
-                        Популярный выбор
-                      </Badge>
-                    )}
-                    
-                    <CardHeader className="text-center pb-4">
-                      <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                      <p className="text-gray-600">{plan.description}</p>
-                      <div className="mt-4">
-                        <span className="text-4xl font-bold">{plan.price}</span>
-                        <span className="text-gray-600"> ₽</span>
-                      </div>
-                    </CardHeader>
-                    
-                    <CardContent>
-                      <ul className="space-y-3 mb-6">
-                        {plan.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start">
-                            <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                            <span className="text-gray-700">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <Button 
-                        className={`w-full ${plan.popular ? 'bg-black hover:bg-gray-800' : ''}`}
-                        variant={plan.popular ? 'default' : 'outline'}
-                      >
-                        Выбрать план
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">Прайс-лист продуктов 1С</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-1/2">Наименование продукта</TableHead>
+                        <TableHead className="text-center">Цена</TableHead>
+                        <TableHead className="w-1/3">Описание</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {products.map((product, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium">{product.name}</TableCell>
+                          <TableCell className="text-center font-bold text-lg">
+                            {product.price} ₸
+                          </TableCell>
+                          <TableCell className="text-gray-600">{product.description}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+
+                  <div className="mt-8 p-4 bg-yellow-50 rounded-lg border-l-4 border-l-yellow-500">
+                    <p className="text-sm text-gray-700">
+                      <strong>Примечание:</strong> Цены указаны в тенге и могут изменяться. 
+                      Для получения актуальной стоимости и индивидуальных предложений 
+                      обращайтесь к нашим специалистам.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
 
               <div className="mt-12 text-center">
                 <p className="text-gray-600 mb-4">
-                  Нужна индивидуальная настройка или у вас есть вопросы?
+                  Нужна консультация по выбору продукта или расчет стоимости?
                 </p>
-                <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                  Связаться с нами
+                <Button size="lg" className="bg-black text-white hover:bg-gray-800">
+                  Получить консультацию
                 </Button>
               </div>
             </div>

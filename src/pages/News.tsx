@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, ArrowRight, Search } from 'lucide-react';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -201,10 +202,12 @@ const News = () => {
                       <p className="text-sm text-gray-500 mb-4">
                         Автор: {article.author}
                       </p>
-                      <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
-                        Читать далее
-                        <ArrowRight size={16} className="ml-2" />
-                      </Button>
+                      <Link to={`/news/${article.id}`}>
+                        <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
+                          Читать далее
+                          <ArrowRight size={16} className="ml-2" />
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 ))}

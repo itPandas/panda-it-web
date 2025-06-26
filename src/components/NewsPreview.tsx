@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const NewsPreview = () => {
   const news = [
@@ -62,19 +63,23 @@ const NewsPreview = () => {
                 <p className="text-gray-600 mb-4 line-clamp-3">
                   {article.excerpt}
                 </p>
-                <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
-                  Читать далее
-                  <ArrowRight size={16} className="ml-2" />
-                </Button>
+                <Link to={`/news/${article.id}`}>
+                  <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
+                    Читать далее
+                    <ArrowRight size={16} className="ml-2" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" className="bg-black text-white hover:bg-gray-800">
-            Все новости
-          </Button>
+          <Link to="/news">
+            <Button size="lg" className="bg-black text-white hover:bg-gray-800">
+              Все новости
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

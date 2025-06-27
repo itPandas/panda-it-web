@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import ConsultationModal from './ConsultationModal';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,9 +44,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button className="bg-black text-white hover:bg-gray-800">
-              Получить консультацию
-            </Button>
+            <ConsultationModal>
+              <Button className="bg-black text-white hover:bg-gray-800">
+                Получить консультацию
+              </Button>
+            </ConsultationModal>
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,9 +79,11 @@ const Header = () => {
               <a href="/contact" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Контакты
               </a>
-              <Button className="bg-black text-white hover:bg-gray-800 w-full mt-4">
-                Получить консультацию
-              </Button>
+              <ConsultationModal>
+                <Button className="bg-black text-white hover:bg-gray-800 w-full mt-4">
+                  Получить консультацию
+                </Button>
+              </ConsultationModal>
             </nav>
           </div>
         )}

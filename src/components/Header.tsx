@@ -1,17 +1,14 @@
 
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import ConsultationModal from './ConsultationModal';
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,144 +29,115 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:block">
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <Link to="/" className="text-gray-700 hover:text-black transition-colors font-medium px-4 py-2">
-                    Главная
+          <div className="hidden lg:flex items-center space-x-8">
+            <Link to="/" className="text-gray-700 hover:text-black transition-colors font-medium">
+              Главная
+            </Link>
+
+            <Popover>
+              <PopoverTrigger className="flex items-center text-gray-700 hover:text-black transition-colors font-medium">
+                1С
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </PopoverTrigger>
+              <PopoverContent className="w-48 p-2 bg-white border border-gray-200 shadow-lg z-50">
+                <div className="space-y-1">
+                  <Link 
+                    to="/product/1c" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Программные продукты
                   </Link>
-                </NavigationMenuItem>
+                  <a 
+                    href="/its" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    ИТС
+                  </a>
+                  <a 
+                    href="/1c-articles" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Статьи
+                  </a>
+                  <a 
+                    href="/integrations" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Интеграции
+                  </a>
+                </div>
+              </PopoverContent>
+            </Popover>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-gray-700 hover:text-black transition-colors font-medium">
-                    1С
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-4 w-48 bg-white">
-                      <NavigationMenuLink asChild>
-                        <Link 
-                          to="/product/1c" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Программные продукты
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/its" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          ИТС
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/1c-articles" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Статьи
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/integrations" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Интеграции
-                        </a>
-                      </NavigationMenuLink>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-gray-700 hover:text-black transition-colors font-medium">
-                    Bitrix24
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-4 w-48 bg-white">
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/bitrix24-overview" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Обзор функций
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/bitrix24-news" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Новости
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/bitrix24-articles" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Статьи
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/bitrix24-guide" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Справочник
-                        </a>
-                      </NavigationMenuLink>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-gray-700 hover:text-black transition-colors font-medium">
-                    Webkassa
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-4 w-48 bg-white">
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/webkassa-overview" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Обзор функций
-                        </a>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          href="/webkassa-news" 
-                          className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
-                        >
-                          Новости
-                        </a>
-                      </NavigationMenuLink>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link to="/news" className="text-gray-700 hover:text-black transition-colors font-medium px-4 py-2">
+            <Popover>
+              <PopoverTrigger className="flex items-center text-gray-700 hover:text-black transition-colors font-medium">
+                Bitrix24
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </PopoverTrigger>
+              <PopoverContent className="w-48 p-2 bg-white border border-gray-200 shadow-lg z-50">
+                <div className="space-y-1">
+                  <a 
+                    href="/bitrix24-overview" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Обзор функций
+                  </a>
+                  <a 
+                    href="/bitrix24-news" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
                     Новости
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <a href="/about" className="text-gray-700 hover:text-black transition-colors font-medium px-4 py-2">
-                    О Компании
                   </a>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <a href="/contact" className="text-gray-700 hover:text-black transition-colors font-medium px-4 py-2">
-                    Контакты
+                  <a 
+                    href="/bitrix24-articles" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Статьи
                   </a>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+                  <a 
+                    href="/bitrix24-guide" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Справочник
+                  </a>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Popover>
+              <PopoverTrigger className="flex items-center text-gray-700 hover:text-black transition-colors font-medium">
+                Webkassa
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </PopoverTrigger>
+              <PopoverContent className="w-48 p-2 bg-white border border-gray-200 shadow-lg z-50">
+                <div className="space-y-1">
+                  <a 
+                    href="/webkassa-overview" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Обзор функций
+                  </a>
+                  <a 
+                    href="/webkassa-news" 
+                    className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
+                  >
+                    Новости
+                  </a>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Link to="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
+              Новости
+            </Link>
+
+            <a href="/about" className="text-gray-700 hover:text-black transition-colors font-medium">
+              О Компании
+            </a>
+
+            <a href="/contact" className="text-gray-700 hover:text-black transition-colors font-medium">
+              Контакты
+            </a>
           </div>
 
           {/* CTA Button */}

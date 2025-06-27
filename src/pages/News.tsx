@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, ArrowRight, Search } from 'lucide-react';
+import { Calendar, ArrowRight, Search, ChevronRight, ChevronDown } from 'lucide-react';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -106,8 +105,60 @@ const News = () => {
     }
   ];
 
-  const categories = ["Все", "1С", "Битрикс24", "Веб-разработка", "CRM", "Мобильная разработка", "Бизнес"];
+  const categories = {
+    "Все": { subcategories: [] },
+    "1С": {
+      subcategories: [
+        "1С:Бухгалтерия",
+        "1С:ERP",
+        "1С:Управление торговлей",
+        "1С:Зарплата и управление персоналом"
+      ]
+    },
+    "Битрикс24": {
+      subcategories: [
+        "CRM",
+        "Проекты и задачи",
+        "Интеграции",
+        "Автоматизация"
+      ]
+    },
+    "Веб-разработка": {
+      subcategories: [
+        "Frontend",
+        "Backend",
+        "Fullstack",
+        "UI/UX"
+      ]
+    },
+    "Мобильная разработка": {
+      subcategories: [
+        "iOS",
+        "Android",
+        "React Native",
+        "Flutter"
+      ]
+    },
+    "Бизнес": {
+      subcategories: [
+        "Стратегия",
+        "Процессы",
+        "Аналитика",
+        "Консалтинг"
+      ]
+    }
+  };
+
   const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+
+  const toggleCategory = (category: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
 
   const filteredNews = allNews.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -136,12 +187,11 @@ const News = () => {
         </div>
       </section>
 
-      {/* Filters Section */}
+      {/* Search Section */}
       <section className="py-8 bg-white border-b">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
+          <div className="max-w-md">
+            <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
@@ -151,115 +201,170 @@ const News = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-
-            {/* Categories */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category)}
-                  className={selectedCategory === category ? "bg-black text-white" : "border-black text-black hover:bg-black hover:text-white"}
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* News Grid */}
+      {/* Main Content */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          {currentNews.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-xl text-gray-600">Новости не найдены</p>
-            </div>
-          ) : (
-            <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {currentNews.map((article) => (
-                  <Card key={article.id} className="hover:shadow-lg transition-shadow duration-300 bg-white">
-                    <CardHeader className="pb-0">
-                      <div className="text-4xl mb-4">{article.image}</div>
-                      <div className="flex items-center text-sm text-gray-500 mb-2">
-                        <Calendar size={16} className="mr-1" />
-                        {new Date(article.date).toLocaleDateString('ru-RU')}
-                        <span className="ml-4 bg-black text-white px-2 py-1 rounded text-xs">
-                          {article.category}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <h3 className="text-xl font-bold text-black mb-3 line-clamp-2">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-600 mb-3 line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Автор: {article.author}
-                      </p>
-                      <Link to={`/news/${article.id}`}>
-                        <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
-                          Читать далее
-                          <ArrowRight size={16} className="ml-2" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <Pagination className="justify-center">
-                  <PaginationContent>
-                    {currentPage > 1 && (
-                      <PaginationItem>
-                        <PaginationPrevious 
-                          href="#" 
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setCurrentPage(currentPage - 1);
-                          }}
-                        />
-                      </PaginationItem>
-                    )}
-                    
-                    {[...Array(totalPages)].map((_, index) => (
-                      <PaginationItem key={index + 1}>
-                        <PaginationLink
-                          href="#"
-                          isActive={currentPage === index + 1}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setCurrentPage(index + 1);
-                          }}
-                        >
-                          {index + 1}
-                        </PaginationLink>
-                      </PaginationItem>
+          <div className="flex gap-8">
+            {/* News Grid - Left Column */}
+            <div className="flex-1">
+              {currentNews.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-xl text-gray-600">Новости не найдены</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid md:grid-cols-2 gap-8 mb-12">
+                    {currentNews.map((article) => (
+                      <Card key={article.id} className="hover:shadow-lg transition-shadow duration-300 bg-white">
+                        <CardHeader className="pb-0">
+                          <div className="text-4xl mb-4">{article.image}</div>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <Calendar size={16} className="mr-1" />
+                            {new Date(article.date).toLocaleDateString('ru-RU')}
+                            <span className="ml-4 bg-black text-white px-2 py-1 rounded text-xs">
+                              {article.category}
+                            </span>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <h3 className="text-xl font-bold text-black mb-3 line-clamp-2">
+                            {article.title}
+                          </h3>
+                          <p className="text-gray-600 mb-3 line-clamp-3">
+                            {article.excerpt}
+                          </p>
+                          <p className="text-sm text-gray-500 mb-4">
+                            Автор: {article.author}
+                          </p>
+                          <Link to={`/news/${article.id}`}>
+                            <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white">
+                              Читать далее
+                              <ArrowRight size={16} className="ml-2" />
+                            </Button>
+                          </Link>
+                        </CardContent>
+                      </Card>
                     ))}
-                    
-                    {currentPage < totalPages && (
-                      <PaginationItem>
-                        <PaginationNext 
-                          href="#" 
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setCurrentPage(currentPage + 1);
-                          }}
-                        />
-                      </PaginationItem>
-                    )}
-                  </PaginationContent>
-                </Pagination>
+                  </div>
+
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <Pagination className="justify-center">
+                      <PaginationContent>
+                        {currentPage > 1 && (
+                          <PaginationItem>
+                            <PaginationPrevious 
+                              href="#" 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(currentPage - 1);
+                              }}
+                            />
+                          </PaginationItem>
+                        )}
+                        
+                        {[...Array(totalPages)].map((_, index) => (
+                          <PaginationItem key={index + 1}>
+                            <PaginationLink
+                              href="#"
+                              isActive={currentPage === index + 1}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(index + 1);
+                              }}
+                            >
+                              {index + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
+                        
+                        {currentPage < totalPages && (
+                          <PaginationItem>
+                            <PaginationNext 
+                              href="#" 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(currentPage + 1);
+                              }}
+                            />
+                          </PaginationItem>
+                        )}
+                      </PaginationContent>
+                    </Pagination>
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+
+            {/* Categories Sidebar - Right Column */}
+            <div className="w-80">
+              <Card className="bg-white sticky top-8">
+                <CardHeader>
+                  <h3 className="text-lg font-semibold text-black">Категории</h3>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="space-y-1">
+                    {Object.entries(categories).map(([category, { subcategories }]) => (
+                      <div key={category}>
+                        <div className="flex items-center justify-between">
+                          <button
+                            onClick={() => {
+                              setSelectedCategory(category);
+                              setCurrentPage(1);
+                            }}
+                            className={`flex-1 text-left px-4 py-2 hover:bg-gray-50 transition-colors ${
+                              selectedCategory === category 
+                                ? 'bg-black text-white font-medium' 
+                                : 'text-gray-700'
+                            }`}
+                          >
+                            {category}
+                          </button>
+                          {subcategories.length > 0 && (
+                            <button
+                              onClick={() => toggleCategory(category)}
+                              className="p-2 hover:bg-gray-50 rounded"
+                            >
+                              {expandedCategories.includes(category) ? (
+                                <ChevronDown size={16} />
+                              ) : (
+                                <ChevronRight size={16} />
+                              )}
+                            </button>
+                          )}
+                        </div>
+                        
+                        {subcategories.length > 0 && expandedCategories.includes(category) && (
+                          <div className="ml-4 border-l border-gray-200">
+                            {subcategories.map((subcategory) => (
+                              <button
+                                key={subcategory}
+                                onClick={() => {
+                                  setSelectedCategory(subcategory);
+                                  setCurrentPage(1);
+                                }}
+                                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                                  selectedCategory === subcategory 
+                                    ? 'bg-gray-100 text-black font-medium' 
+                                    : 'text-gray-600'
+                                }`}
+                              >
+                                {subcategory}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -106,46 +106,86 @@ const News = () => {
   ];
 
   const categories = {
-    "Все": { subcategories: [] },
+    "Все": { subcategories: {} },
     "1С": {
-      subcategories: [
-        "1С:Бухгалтерия",
-        "1С:ERP",
-        "1С:Управление торговлей",
-        "1С:Зарплата и управление персоналом"
-      ]
+      subcategories: {
+        "1С:Бухгалтерия": {
+          subcategories: {
+            "Настройка": { subcategories: {} },
+            "Обновления": { subcategories: {} },
+            "Интеграции": { subcategories: {} }
+          }
+        },
+        "1С:ERP": {
+          subcategories: {
+            "Производство": { subcategories: {} },
+            "Складской учет": { subcategories: {} },
+            "Финансы": { subcategories: {} }
+          }
+        },
+        "1С:Управление торговлей": {
+          subcategories: {
+            "Розничная торговля": { subcategories: {} },
+            "Оптовая торговля": { subcategories: {} }
+          }
+        },
+        "1С:Зарплата и управление персоналом": { subcategories: {} }
+      }
     },
     "Битрикс24": {
-      subcategories: [
-        "CRM",
-        "Проекты и задачи",
-        "Интеграции",
-        "Автоматизация"
-      ]
+      subcategories: {
+        "CRM": {
+          subcategories: {
+            "Лиды": { subcategories: {} },
+            "Сделки": { subcategories: {} },
+            "Контакты": { subcategories: {} }
+          }
+        },
+        "Проекты и задачи": {
+          subcategories: {
+            "Планирование": { subcategories: {} },
+            "Отчетность": { subcategories: {} }
+          }
+        },
+        "Интеграции": { subcategories: {} },
+        "Автоматизация": { subcategories: {} }
+      }
     },
     "Веб-разработка": {
-      subcategories: [
-        "Frontend",
-        "Backend",
-        "Fullstack",
-        "UI/UX"
-      ]
+      subcategories: {
+        "Frontend": {
+          subcategories: {
+            "React": { subcategories: {} },
+            "Vue.js": { subcategories: {} },
+            "Angular": { subcategories: {} }
+          }
+        },
+        "Backend": {
+          subcategories: {
+            "Node.js": { subcategories: {} },
+            "PHP": { subcategories: {} },
+            "Python": { subcategories: {} }
+          }
+        },
+        "Fullstack": { subcategories: {} },
+        "UI/UX": { subcategories: {} }
+      }
     },
     "Мобильная разработка": {
-      subcategories: [
-        "iOS",
-        "Android",
-        "React Native",
-        "Flutter"
-      ]
+      subcategories: {
+        "iOS": { subcategories: {} },
+        "Android": { subcategories: {} },
+        "React Native": { subcategories: {} },
+        "Flutter": { subcategories: {} }
+      }
     },
     "Бизнес": {
-      subcategories: [
-        "Стратегия",
-        "Процессы",
-        "Аналитика",
-        "Консалтинг"
-      ]
+      subcategories: {
+        "Стратегия": { subcategories: {} },
+        "Процессы": { subcategories: {} },
+        "Аналитика": { subcategories: {} },
+        "Консалтинг": { subcategories: {} }
+      }
     }
   };
 
@@ -158,6 +198,46 @@ const News = () => {
         ? prev.filter(c => c !== category)
         : [...prev, category]
     );
+  };
+
+  const renderCategoryTree = (categories: any, level = 0) => {
+    return Object.entries(categories).map(([category, { subcategories }]) => (
+      <div key={category} style={{ marginLeft: `${level * 16}px` }}>
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => {
+              setSelectedCategory(category);
+              setCurrentPage(1);
+            }}
+            className={`flex-1 text-left px-4 py-2 hover:bg-gray-50 transition-colors rounded-l ${
+              selectedCategory === category 
+                ? 'bg-black text-white font-medium' 
+                : 'text-gray-700'
+            }`}
+          >
+            {category}
+          </button>
+          {Object.keys(subcategories).length > 0 && (
+            <button
+              onClick={() => toggleCategory(category)}
+              className="p-2 hover:bg-gray-50 rounded transition-colors"
+            >
+              {expandedCategories.includes(category) ? (
+                <ChevronDown size={16} className="text-gray-600" />
+              ) : (
+                <ChevronRight size={16} className="text-gray-600" />
+              )}
+            </button>
+          )}
+        </div>
+        
+        {Object.keys(subcategories).length > 0 && expandedCategories.includes(category) && (
+          <div className="mt-1 mb-2">
+            {renderCategoryTree(subcategories, level + 1)}
+          </div>
+        )}
+      </div>
+    ));
   };
 
   const filteredNews = allNews.filter(article => {
@@ -306,60 +386,9 @@ const News = () => {
                 <CardHeader>
                   <h3 className="text-lg font-semibold text-black">Категории</h3>
                 </CardHeader>
-                <CardContent className="p-0">
-                  <div className="space-y-1">
-                    {Object.entries(categories).map(([category, { subcategories }]) => (
-                      <div key={category}>
-                        <div className="flex items-center justify-between">
-                          <button
-                            onClick={() => {
-                              setSelectedCategory(category);
-                              setCurrentPage(1);
-                            }}
-                            className={`flex-1 text-left px-4 py-2 hover:bg-gray-50 transition-colors ${
-                              selectedCategory === category 
-                                ? 'bg-black text-white font-medium' 
-                                : 'text-gray-700'
-                            }`}
-                          >
-                            {category}
-                          </button>
-                          {subcategories.length > 0 && (
-                            <button
-                              onClick={() => toggleCategory(category)}
-                              className="p-2 hover:bg-gray-50 rounded"
-                            >
-                              {expandedCategories.includes(category) ? (
-                                <ChevronDown size={16} />
-                              ) : (
-                                <ChevronRight size={16} />
-                              )}
-                            </button>
-                          )}
-                        </div>
-                        
-                        {subcategories.length > 0 && expandedCategories.includes(category) && (
-                          <div className="ml-4 border-l border-gray-200">
-                            {subcategories.map((subcategory) => (
-                              <button
-                                key={subcategory}
-                                onClick={() => {
-                                  setSelectedCategory(subcategory);
-                                  setCurrentPage(1);
-                                }}
-                                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                                  selectedCategory === subcategory 
-                                    ? 'bg-gray-100 text-black font-medium' 
-                                    : 'text-gray-600'
-                                }`}
-                              >
-                                {subcategory}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                <CardContent className="p-2">
+                  <div className="space-y-1 max-h-96 overflow-y-auto">
+                    {renderCategoryTree(categories)}
                   </div>
                 </CardContent>
               </Card>

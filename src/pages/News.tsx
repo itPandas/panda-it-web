@@ -200,8 +200,8 @@ const News = () => {
     );
   };
 
-  const renderCategoryTree = (categories: any, level = 0) => {
-    return Object.entries(categories).map(([category, { subcategories }]) => (
+  const renderCategoryTree = (categories: any, level = 0): React.ReactNode => {
+    return Object.entries(categories).map(([category, categoryData]: [string, any]) => (
       <div key={category} style={{ marginLeft: `${level * 16}px` }}>
         <div className="flex items-center justify-between">
           <button
@@ -217,7 +217,7 @@ const News = () => {
           >
             {category}
           </button>
-          {Object.keys(subcategories).length > 0 && (
+          {Object.keys(categoryData.subcategories || {}).length > 0 && (
             <button
               onClick={() => toggleCategory(category)}
               className="p-2 hover:bg-gray-50 rounded transition-colors"
@@ -231,9 +231,9 @@ const News = () => {
           )}
         </div>
         
-        {Object.keys(subcategories).length > 0 && expandedCategories.includes(category) && (
+        {Object.keys(categoryData.subcategories || {}).length > 0 && expandedCategories.includes(category) && (
           <div className="mt-1 mb-2">
-            {renderCategoryTree(subcategories, level + 1)}
+            {renderCategoryTree(categoryData.subcategories, level + 1)}
           </div>
         )}
       </div>

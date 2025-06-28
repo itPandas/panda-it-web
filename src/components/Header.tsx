@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -131,6 +130,10 @@ const Header = () => {
               Новости
             </Link>
 
+            <Link to="/portfolio" className="text-gray-700 hover:text-black transition-colors font-medium">
+              Наши работы
+            </Link>
+
             <a href="/about" className="text-gray-700 hover:text-black transition-colors font-medium">
               О Компании
             </a>
@@ -212,6 +215,9 @@ const Header = () => {
               </div>
               <Link to="/news" className="text-gray-700 hover:text-black transition-colors font-medium">
                 Новости
+              </Link>
+              <Link to="/portfolio" className="text-gray-700 hover:text-black transition-colors font-medium">
+                Наши работы
               </Link>
               <a href="/about" className="text-gray-700 hover:text-black transition-colors font-medium">
                 О Компании

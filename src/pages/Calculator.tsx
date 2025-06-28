@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -102,6 +101,21 @@ const Calculator = () => {
     ];
   };
 
+  const getITSCost = () => {
+    if (selectedTab !== '1c' || !userCount) return 0;
+    
+    // ИТС стоимость в зависимости от количества пользователей
+    switch(userCount) {
+      case '1-5': return 4400;
+      case '6-10': return 6600;
+      case '11-25': return 8800;
+      case '26-50': return 13200;
+      case '51-100': return 17600;
+      case '100+': return 26400;
+      default: return 0;
+    }
+  };
+
   const calculateTotal = () => {
     const products = selectedTab === '1c' ? get1CProducts() : getBitrixProducts();
     if (products.length === 0) return 0;
@@ -109,8 +123,9 @@ const Calculator = () => {
     const basePrice = products[0].price;
     const userMultiplier = getUserMultiplier();
     const remoteMultiplier = hasRemoteUsers === 'yes' ? 1.2 : 1;
+    const itsPrice = getITSCost();
     
-    return Math.round(basePrice * userMultiplier * remoteMultiplier);
+    return Math.round((basePrice * userMultiplier + itsPrice) * remoteMultiplier);
   };
 
   const getUserMultiplier = () => {
@@ -242,9 +257,21 @@ const Calculator = () => {
                               </span>
                             </div>
                           ))}
+                          
+                          {/* ИТС блок */}
+                          <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div>
+                              <span className="font-medium">ИТС (обязательно)</span>
+                              <p className="text-sm text-blue-700">Информационно-технологическое сопровождение</p>
+                            </div>
+                            <span className="text-blue-600 font-bold">
+                              {getITSCost().toLocaleString()} ₸/год
+                            </span>
+                          </div>
+                          
                           {hasRemoteUsers === 'yes' && (
-                            <div className="p-3 bg-blue-50 rounded-lg">
-                              <p className="text-sm text-blue-700">
+                            <div className="p-3 bg-orange-50 rounded-lg">
+                              <p className="text-sm text-orange-700">
                                 + 20% за поддержку удаленных пользователей
                               </p>
                             </div>
@@ -267,13 +294,19 @@ const Calculator = () => {
 
                       <div className="mt-6 p-4 bg-black text-white rounded-lg">
                         <div className="flex items-center justify-between">
-                          <span className="text-lg font-semibold">Стоимость продукта:</span>
+                          <span className="text-lg font-semibold">
+                            {selectedTab === '1c' ? 'Общая стоимость:' : 'Стоимость продукта:'}
+                          </span>
                           <span className="text-2xl font-bold">
                             {calculateTotal().toLocaleString()} ₸
+                            {selectedTab === '1c' ? '/год' : ''}
                           </span>
                         </div>
                         <p className="text-sm text-gray-300 mt-2">
-                          * Без учета стоимости внедрения и настройки
+                          {selectedTab === '1c' 
+                            ? '* Включает продукт 1С и ИТС. Без учета стоимости внедрения' 
+                            : '* Без учета стоимости внедрения и настройки'
+                          }
                         </p>
                       </div>
 

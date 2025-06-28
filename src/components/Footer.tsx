@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -38,10 +39,10 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Компания</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">О нас</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Портфолио</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Новости</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Карьера</a></li>
+              <li><a href="/about" className="hover:text-white transition-colors">О нас</a></li>
+              <li><Link to="/portfolio" className="hover:text-white transition-colors">Наши работы</Link></li>
+              <li><Link to="/news" className="hover:text-white transition-colors">Новости</Link></li>
+              <li><Link to="/careers" className="hover:text-white transition-colors">Карьера</Link></li>
             </ul>
           </div>
 

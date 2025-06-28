@@ -64,12 +64,12 @@ const Footer = () => {
             © 2024 IT-Pandas. Все права защищены.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
               Политика конфиденциальности
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+            </Link>
+            <Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">
               Условия использования
-            </a>
+            </Link>
           </div>
         </div>
       </div>

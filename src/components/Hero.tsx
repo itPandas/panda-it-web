@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code, Users, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -18,13 +19,17 @@ const Hero = () => {
               Автоматизируем ваши бизнес-процессы с профессиональным подходом.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-black text-white hover:bg-gray-800">
-                Начать проект
-                <ArrowRight className="ml-2" size={20} />
-              </Button>
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                Наши работы
-              </Button>
+              <Link to="/calculator">
+                <Button size="lg" className="bg-black text-white hover:bg-gray-800 w-full sm:w-auto">
+                  Начать проект
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
+              <Link to="/portfolio">
+                <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white w-full sm:w-auto">
+                  Наши работы
+                </Button>
+              </Link>
             </div>
             
             {/* Stats */}

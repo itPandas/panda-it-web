@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -42,7 +41,7 @@ const Header = () => {
               <PopoverContent className="w-48 p-2 bg-white border border-gray-200 shadow-lg z-50">
                 <div className="space-y-1">
                   <Link 
-                    to="/product/1c" 
+                    to="/products/1c" 
                     className="block px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded transition-colors"
                   >
                     Программные продукты
@@ -172,7 +171,7 @@ const Header = () => {
               <div className="space-y-2">
                 <div className="font-medium text-gray-900">1С</div>
                 <div className="ml-4 space-y-1">
-                  <Link to="/product/1c" className="block text-gray-700 hover:text-black transition-colors">
+                  <Link to="/products/1c" className="block text-gray-700 hover:text-black transition-colors">
                     Программные продукты
                   </Link>
                   <a href="/its" className="block text-gray-700 hover:text-black transition-colors">

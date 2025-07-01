@@ -14,6 +14,7 @@ import Calculator from "./pages/Calculator";
 import Careers from "./pages/Careers";
 import CareerDetail from "./pages/CareerDetail";
 import CareerApply from "./pages/CareerApply";
+import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/careers/:id" element={<CareerDetail />} />
           <Route path="/careers/apply" element={<CareerApply />} />
+          <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

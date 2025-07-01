@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Play, Calendar } from 'lucide-react';
 
 const ProductHero = () => {
   return (
@@ -16,8 +16,12 @@ const ProductHero = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-white text-black hover:bg-gray-100">
-                <Download className="w-5 h-5 mr-2" />
-                Скачать демо
+                <Play className="w-5 h-5 mr-2" />
+                Посмотреть демо онлайн
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                <Calendar className="w-5 h-5 mr-2" />
+                Записаться на демонстрацию
               </Button>
             </div>
           </div>

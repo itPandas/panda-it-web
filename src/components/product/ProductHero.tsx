@@ -19,7 +19,7 @@ const ProductHero = () => {
                 <Play className="w-5 h-5 mr-2" />
                 Посмотреть демо онлайн
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+              <Button size="lg" className="bg-white text-black hover:bg-gray-100">
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться на демонстрацию
               </Button>

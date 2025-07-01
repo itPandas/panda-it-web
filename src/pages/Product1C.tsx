@@ -6,7 +6,6 @@ import ProductHero from '../components/product/ProductHero';
 import ProductDescription from '../components/product/ProductDescription';
 import SystemRequirements from '../components/product/SystemRequirements';
 import PricingTable from '../components/product/PricingTable';
-import ProductConsultation from '../components/product/ProductConsultation';
 
 const Product1C = () => {
   return (
@@ -18,7 +17,6 @@ const Product1C = () => {
         <ProductDescription />
         <SystemRequirements />
         <PricingTable />
-        <ProductConsultation />
       </main>
 
       <Footer />

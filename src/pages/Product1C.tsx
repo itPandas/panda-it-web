@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import ProductHero from '../components/product/ProductHero';
 import ProductDescription from '../components/product/ProductDescription';
 import SystemRequirements from '../components/product/SystemRequirements';
-import PricingTable from '../components/product/PricingTable';
+import ProductPricingDetails from '../components/product/ProductPricingDetails';
 
 const Product1C = () => {
   return (
@@ -16,7 +16,7 @@ const Product1C = () => {
         <ProductHero />
         <ProductDescription />
         <SystemRequirements />
-        <PricingTable />
+        <ProductPricingDetails />
       </main>
 
       <Footer />

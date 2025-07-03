@@ -11,10 +11,10 @@ import {
   TableRow 
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Check, Cloud, Users, Building } from 'lucide-react';
+import { Check, X, Cloud, Users, Building } from 'lucide-react';
 
 const PricingTable = () => {
-  const products = [
+  const boxedProducts = [
     {
       name: "1С:Бухгалтерия для Казахстана",
       price: "78 000",
@@ -31,7 +31,7 @@ const PricingTable = () => {
       description: "Комплект лицензий для небольшого офиса"
     },
     {
-      name: "1С:Управление торговлей для Казахстана",
+      name: "1С:Управление торговlей для Казахстана",
       price: "95 000",
       description: "Решение для автоматизации торговых процессов"
     },
@@ -65,14 +65,6 @@ const PricingTable = () => {
       period: "в месяц",
       users: "До 3 пользователей",
       description: "Идеально для начинающих предпринимателей и малого бизнеса",
-      features: [
-        "Ведение бухгалтерского учета",
-        "Управление торговлей",
-        "Кадровый учет",
-        "Онлайн-касса",
-        "Мобильное приложение",
-        "Техподдержка"
-      ],
       popular: false
     },
     {
@@ -82,14 +74,6 @@ const PricingTable = () => {
       period: "в месяц",
       users: "До 10 пользователей",
       description: "Оптимальное решение для растущего бизнеса",
-      features: [
-        "Все возможности тарифа Старт",
-        "Расширенная отчетность",
-        "Интеграция с банками",
-        "Электронный документооборот",
-        "API для интеграций",
-        "Приоритетная поддержка"
-      ],
       popular: true
     },
     {
@@ -99,15 +83,94 @@ const PricingTable = () => {
       period: "в месяц",
       users: "До 25 пользователей",
       description: "Полнофункциональное решение для среднего бизнеса",
-      features: [
-        "Все возможности тарифа Базовый",
-        "Управление производством",
-        "Бюджетирование и планирование",
-        "Аналитические панели",
-        "Персональный менеджер",
-        "Обучение сотрудников"
-      ],
       popular: false
+    }
+  ];
+
+  const freshProducts = [
+    {
+      name: "1С:Бухгалтерия",
+      description: "Ведение бухгалтерского и налогового учета",
+      plans: {
+        start: true,
+        basic: true,
+        professional: true
+      },
+      differences: {
+        start: "Базовый функционал",
+        basic: "Расширенная отчетность",
+        professional: "Полный функционал + аналитика"
+      }
+    },
+    {
+      name: "1С:Управление торговлей",
+      description: "Автоматизация торговых процессов и складского учета",
+      plans: {
+        start: true,
+        basic: true,
+        professional: true
+      },
+      differences: {
+        start: "Базовые операции продаж",
+        basic: "Интеграция с банками и кассами",
+        professional: "Многоскладской учет + B2B портал"
+      }
+    },
+    {
+      name: "1С:Зарплата и кадры",
+      description: "Расчет зарплаты и управление персоналом",
+      plans: {
+        start: false,
+        basic: true,
+        professional: true
+      },
+      differences: {
+        start: "Не включен",
+        basic: "Базовый кадровый учет",
+        professional: "Полный HR функционал + планирование"
+      }
+    },
+    {
+      name: "1С:CRM",
+      description: "Управление взаимоотношениями с клиентами",
+      plans: {
+        start: false,
+        basic: false,
+        professional: true
+      },
+      differences: {
+        start: "Не включен",
+        basic: "Не включен",
+        professional: "Полный CRM функционал"
+      }
+    },
+    {
+      name: "1С:Документооборот",
+      description: "Электронный документооборот и согласование",
+      plans: {
+        start: false,
+        basic: true,
+        professional: true
+      },
+      differences: {
+        start: "Не включен",
+        basic: "Базовый ЭДО",
+        professional: "Расширенный ЭДО + интеграции"
+      }
+    },
+    {
+      name: "Мобильные приложения",
+      description: "Доступ к системе с мобильных устройств",
+      plans: {
+        start: true,
+        basic: true,
+        professional: true
+      },
+      differences: {
+        start: "Базовые функции",
+        basic: "Расширенные возможности",
+        professional: "Полный функционал"
+      }
     }
   ];
 
@@ -136,7 +199,8 @@ const PricingTable = () => {
                 </p>
               </div>
 
-              <div className="grid lg:grid-cols-3 gap-8 mb-8">
+              {/* Тарифные планы */}
+              <div className="grid lg:grid-cols-3 gap-8 mb-12">
                 {freshPlans.map((plan, index) => {
                   const IconComponent = plan.icon;
                   return (
@@ -161,14 +225,6 @@ const PricingTable = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-gray-600 mb-6">{plan.description}</p>
-                        <ul className="space-y-3 mb-6">
-                          {plan.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-start">
-                              <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
                         <Button className={`w-full ${plan.popular ? 'bg-black text-white hover:bg-gray-800' : ''}`}>
                           Выбрать план
                         </Button>
@@ -177,6 +233,69 @@ const PricingTable = () => {
                   );
                 })}
               </div>
+
+              {/* Сравнительная таблица продуктов */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">Что входит в тарифные планы</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-1/4">Продукт</TableHead>
+                          <TableHead className="text-center">Старт</TableHead>
+                          <TableHead className="text-center">Базовый</TableHead>
+                          <TableHead className="text-center">Профессиональный</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {freshProducts.map((product, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="font-medium">
+                              <div>
+                                <div className="font-semibold">{product.name}</div>
+                                <div className="text-sm text-gray-600">{product.description}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <div className="flex flex-col items-center">
+                                {product.plans.start ? (
+                                  <Check className="w-5 h-5 text-green-500 mb-1" />
+                                ) : (
+                                  <X className="w-5 h-5 text-red-500 mb-1" />
+                                )}
+                                <span className="text-xs text-gray-600">{product.differences.start}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <div className="flex flex-col items-center">
+                                {product.plans.basic ? (
+                                  <Check className="w-5 h-5 text-green-500 mb-1" />
+                                ) : (
+                                  <X className="w-5 h-5 text-red-500 mb-1" />
+                                )}
+                                <span className="text-xs text-gray-600">{product.differences.basic}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <div className="flex flex-col items-center">
+                                {product.plans.professional ? (
+                                  <Check className="w-5 h-5 text-green-500 mb-1" />
+                                ) : (
+                                  <X className="w-5 h-5 text-red-500 mb-1" />
+                                )}
+                                <span className="text-xs text-gray-600">{product.differences.professional}</span>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
 
               <div className="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-l-blue-500">
                 <p className="text-sm text-gray-700">
@@ -201,7 +320,7 @@ const PricingTable = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {products.map((product, index) => (
+                      {boxedProducts.map((product, index) => (
                         <TableRow key={index}>
                           <TableCell className="font-medium">{product.name}</TableCell>
                           <TableCell className="text-center font-bold text-lg">

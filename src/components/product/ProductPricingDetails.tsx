@@ -148,16 +148,16 @@ const ProductPricingDetails = () => {
   const renderValue = (value: any) => {
     if (typeof value === 'boolean') {
       return value ? (
-        <Check className="w-5 h-5 text-green-500 mx-auto" />
+        <Check className="w-5 h-5 text-black mx-auto" />
       ) : (
-        <X className="w-5 h-5 text-red-500 mx-auto" />
+        <X className="w-5 h-5 text-gray-500 mx-auto" />
       );
     }
     return <span className="text-sm">{value}</span>;
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
@@ -186,20 +186,20 @@ const ProductPricingDetails = () => {
                 {freshPlans.map((plan, index) => {
                   const IconComponent = plan.icon;
                   return (
-                    <Card key={index} className={`relative ${plan.popular ? 'border-2 border-blue-500 shadow-lg scale-105' : ''}`}>
+                    <Card key={index} className={`relative ${plan.popular ? 'border-2 border-black shadow-lg scale-105' : ''}`}>
                       {plan.popular && (
                         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                          <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-black text-white px-3 py-1 rounded-full text-sm font-medium">
                             Популярный
                           </span>
                         </div>
                       )}
                       <CardHeader className="text-center">
-                        <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                          <IconComponent className="w-8 h-8 text-blue-600" />
+                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                          <IconComponent className="w-8 h-8 text-black" />
                         </div>
                         <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                        <div className="text-4xl font-bold text-blue-600">
+                        <div className="text-4xl font-bold text-black">
                           {plan.price} ₸
                           <span className="text-sm font-normal text-gray-600">/{plan.period}</span>
                         </div>
@@ -219,13 +219,13 @@ const ProductPricingDetails = () => {
                           <div className="flex items-center justify-between text-sm">
                             <span>ИТС включено:</span>
                             {plan.features.itsIncluded ? (
-                              <Check className="w-4 h-4 text-green-500" />
+                              <Check className="w-4 h-4 text-black" />
                             ) : (
-                              <X className="w-4 h-4 text-red-500" />
+                              <X className="w-4 h-4 text-gray-500" />
                             )}
                           </div>
                         </div>
-                        <Button className={`w-full ${plan.popular ? 'bg-blue-500 text-white hover:bg-blue-600' : ''}`}>
+                        <Button className={`w-full ${plan.popular ? 'bg-black text-white hover:bg-gray-800' : 'border border-black text-black bg-white hover:bg-gray-50'}`}>
                           Выбрать план
                         </Button>
                       </CardContent>
@@ -276,7 +276,7 @@ const ProductPricingDetails = () => {
               </Card>
 
               <div className="mt-12 grid md:grid-cols-2 gap-8">
-                <Card className="border-l-4 border-l-blue-500">
+                <Card className="border-l-4 border-l-black">
                   <CardContent className="pt-6">
                     <h3 className="text-lg font-semibold mb-3">Что включает ИТС?</h3>
                     <ul className="space-y-2 text-sm text-gray-600">
@@ -287,7 +287,7 @@ const ProductPricingDetails = () => {
                     </ul>
                   </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-green-500">
+                <Card className="border-l-4 border-l-gray-500">
                   <CardContent className="pt-6">
                     <h3 className="text-lg font-semibold mb-3">Преимущества 1С:Fresh</h3>
                     <ul className="space-y-2 text-sm text-gray-600">
@@ -311,25 +311,25 @@ const ProductPricingDetails = () => {
 
               <div className="grid lg:grid-cols-2 gap-8 mb-12">
                 {boxedProducts.map((product, index) => (
-                  <Card key={index} className="border-l-4 border-l-orange-500">
+                  <Card key={index} className="border-l-4 border-l-gray-600">
                     <CardHeader>
                       <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                          <Package className="w-6 h-6 text-orange-600" />
+                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+                          <Package className="w-6 h-6 text-black" />
                         </div>
                         <div>
                           <CardTitle className="text-lg">{product.name}</CardTitle>
                           <p className="text-sm text-gray-600">{product.users}</p>
                         </div>
                       </div>
-                      <div className="text-3xl font-bold text-orange-600">
+                      <div className="text-3xl font-bold text-black">
                         {product.price} ₸
                         <span className="text-sm font-normal text-gray-600 block">единоразовая оплата</span>
                       </div>
                     </CardHeader>
                     <CardContent>
                       <p className="text-gray-600 mb-6">{product.description}</p>
-                      <Button className="w-full bg-orange-500 text-white hover:bg-orange-600">
+                      <Button className="w-full bg-black text-white hover:bg-gray-800">
                         Купить лицензию
                       </Button>
                     </CardContent>
@@ -344,7 +344,7 @@ const ProductPricingDetails = () => {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
-                      <h4 className="font-semibold text-lg mb-4 text-green-600">Преимущества</h4>
+                      <h4 className="font-semibold text-lg mb-4 text-black">Преимущества</h4>
                       <ul className="space-y-2 text-sm text-gray-600">
                         <li>• Единоразовая покупка без абонентской платы</li>
                         <li>• Полный контроль над данными</li>
@@ -354,7 +354,7 @@ const ProductPricingDetails = () => {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg mb-4 text-red-600">Дополнительные расходы</h4>
+                      <h4 className="font-semibold text-lg mb-4 text-gray-700">Дополнительные расходы</h4>
                       <ul className="space-y-2 text-sm text-gray-600">
                         <li>• ИТС (поддержка): ~15-20% от стоимости лицензии в год</li>
                         <li>• Администрирование сервера</li>
@@ -367,7 +367,7 @@ const ProductPricingDetails = () => {
                 </CardContent>
               </Card>
 
-              <div className="mt-8 p-4 bg-yellow-50 rounded-lg border-l-4 border-l-yellow-500">
+              <div className="mt-8 p-4 bg-gray-50 rounded-lg border-l-4 border-l-gray-600">
                 <p className="text-sm text-gray-700">
                   <strong>Важно:</strong> Цены на коробочные версии указаны без НДС. 
                   ИТС (информационно-технологическое сопровождение) приобретается отдельно 
@@ -381,7 +381,7 @@ const ProductPricingDetails = () => {
             <p className="text-gray-600 mb-4">
               Нужна консультация по выбору версии 1С:Бухгалтерия?
             </p>
-            <Button size="lg" className="bg-blue-500 text-white hover:bg-blue-600">
+            <Button size="lg" className="bg-black text-white hover:bg-gray-800">
               Получить консультацию
             </Button>
           </div>

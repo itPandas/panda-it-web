@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -309,33 +308,51 @@ const ProductPricingDetails = () => {
                 </p>
               </div>
 
-              <div className="grid lg:grid-cols-2 gap-8 mb-12">
-                {boxedProducts.map((product, index) => (
-                  <Card key={index} className="border-l-4 border-l-gray-600">
-                    <CardHeader>
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
-                          <Package className="w-6 h-6 text-black" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-lg">{product.name}</CardTitle>
-                          <p className="text-sm text-gray-600">{product.users}</p>
-                        </div>
-                      </div>
-                      <div className="text-3xl font-bold text-black">
-                        {product.price} ₸
-                        <span className="text-sm font-normal text-gray-600 block">единоразовая оплата</span>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-600 mb-6">{product.description}</p>
-                      <Button className="w-full bg-black text-white hover:bg-gray-800">
-                        Купить лицензию
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <Card className="mb-12">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">Цены на коробочные версии</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-2/5">Продукт</TableHead>
+                          <TableHead className="text-center">Количество пользователей</TableHead>
+                          <TableHead className="text-center">Цена</TableHead>
+                          <TableHead className="text-center">Действие</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {boxedProducts.map((product, index) => (
+                          <TableRow key={index}>
+                            <TableCell>
+                              <div>
+                                <div className="font-medium text-sm">{product.name}</div>
+                                <div className="text-xs text-gray-600 mt-1">{product.description}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <span className="text-sm font-medium">{product.users}</span>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <div className="text-lg font-bold text-black">
+                                {product.price} ₸
+                                <div className="text-xs font-normal text-gray-600">единоразовая оплата</div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              <Button size="sm" className="bg-black text-white hover:bg-gray-800">
+                                Купить
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
 
               <Card>
                 <CardHeader>
